@@ -1,0 +1,11 @@
+# project-specific
+.exampledata.py
+.env
+
+# unnessecary
+.direnv
+*__pycache__
+
+# pixi environments
+.pixi
+*.egg-info
