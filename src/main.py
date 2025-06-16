@@ -4,13 +4,7 @@ from game_notifier import fetcher, notifier
 from pathlib import Path
 import dotenv
 
-dotenv.load_dotenv(dotenv_path=Path("/home/rick/tmp/.env"))
-topic = os.getenv("NTFY_TOPIC")
-steam_game_ids = [id.strip() for id in os.getenv("STEAM_WANTED_GAMES", "").split(",")]
-notify_epic = os.getenv("EPIC_NOTIFY_FREE_GAMES", "").lower() in ("true", "1", "yes")
-
-
-def handle_notifications():
+def handle_notifications(topic, notify_epic, steam_game_ids):
     """the actual program logic to be executed after initialization"""
 
     if notify_epic:
@@ -24,11 +18,19 @@ def handle_notifications():
             if msg:
                 notifier.send_ntfy(topic, msg)
 
+def init():
+    print("init the program... (logic to be defined)")
 
-# TODO: handle default case
+def main(env_path: Path):
+    dotenv.load_dotenv(dotenv_path=Path("/home/rick/tmp/.env"))
+    topic = os.getenv("NTFY_TOPIC")
+    steam_game_ids = [id.strip() for id in os.getenv("STEAM_WANTED_GAMES", "").split(",")]
+    notify_epic = os.getenv("EPIC_NOTIFY_FREE_GAMES", "").lower() in ("true", "1", "yes")
+
+    handle_notifications(topic, notify_epic, steam_game_ids)
+
 match sys.argv[1]:
     case "init":
-        print("initiation go")
+        init()
     case _:
-        print("default case")
-        # handle_notifications()
+        main(sys.argv[1]) # assuming that's the path

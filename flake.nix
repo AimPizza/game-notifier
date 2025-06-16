@@ -14,9 +14,10 @@
         pkgs = import nixpkgs { inherit system; };
         fhs = pkgs.buildFHSEnv {
           name = "game-notifier-env";
-          # targetPkgs =
-          #   ps: with ps; [
-          #   ];
+          targetPkgs =
+            ps: with ps; [
+              ruff
+            ];
           # multiPkgs = ps: with ps; [ ]; # 32-bit libs
           runScript = "bash";
         };
