@@ -1,5 +1,5 @@
 [project]
-authors = [{name = "AimPizza", email = "rickomo.us@gmail.com"}]
+authors = [{ name = "AimPizza", email = "rickomo.us@gmail.com" }]
 name = "game-notifier"
 requires-python = ">= 3.11"
 version = "0.1.0"
@@ -21,3 +21,10 @@ start = "python src/main.py"
 
 [tool.pixi.dependencies]
 python-dotenv = ">=1.1.0,<2"
+
+[tool.ruff]
+select = ["D", "E", "F", "W", "B"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "single"
