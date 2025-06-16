@@ -1,6 +1,7 @@
 # project-specific
 .exampledata.py
 .env
+data.db
 
 # unnessecary
 .direnv

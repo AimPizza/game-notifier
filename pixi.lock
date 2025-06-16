@@ -98,7 +98,7 @@ packages:
 - pypi: ./
   name: game-notifier
   version: 0.1.0
-  sha256: 09d5be40604336a844053163a7e86a1d2b5a8afc469d5c2f854d0c786c663f0d
+  sha256: b160626b433e52fa37c958e1840970b4f7ccda02c6656ff1a35faa75f8bb39ea
   requires_dist:
   - epic-games-free>=0.1.4,<0.2
   - python-dotenv
