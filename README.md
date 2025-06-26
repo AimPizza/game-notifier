@@ -13,13 +13,25 @@
 
 **getting started:**
 
+see below first in case your setup differs from linux standards
+
 - clone this repo
 - edit `.env.example`, move it to `.env`
-- set up databases: `pixi run start init /path/to/working-directory`
-- run the script: `pixi run start /path/to/working-directory/.env`
-  - make sure this path includes the `.env` file
+- set up databases (and systemd service): `pixi run start --install --config-dir /path/to/configuration --script-dir /path/to/script/main.py`
+- view with `journalctl --user -u game-notifier@game-notifier -f`
+- remove service with `pixi run rmservice`
 
 side-note: I'm aware this isn't very neat and every help in fixing that is appreciated :]
+
+**NixOS**
+
+help wanted: I'm not sure this setup is any good to be honest.
+
+- adjust and include `game-notifier-service.nix` in your configuration
+- when setting up the database, pass `--no-service`
+- rebuild your configuration and enjoy
+
+monitor with: `journalctl -u gameNotifierService.service -f`
 
 ## motivation
 
