@@ -119,7 +119,6 @@ def main():
         init(config_dir, script_dir, skip_service_installation)
     elif args.run:
         dotenv_path = config_dir / '.env'
-        print(f'DEBUG dotenv_path: {dotenv_path}')
         dotenv.load_dotenv(dotenv_path)
 
         topic = os.getenv('NTFY_TOPIC')

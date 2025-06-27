@@ -33,6 +33,10 @@ help wanted: I'm not sure this setup is any good to be honest.
 
 monitor with: `journalctl -u gameNotifierService.service -f`
 
+## TODO
+
+- allow for configuration changes (without relying on re-installation)
+
 ## motivation
 
 - the upcoming Python exam

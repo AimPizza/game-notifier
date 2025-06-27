@@ -16,23 +16,25 @@ After=network.target
 Type=simple
 Environment="PATH={path_env}"
 WorkingDirectory={cwd}
-ExecStart=/usr/bin/env python3 {main_py} %I
+ExecStart=/usr/bin/env python3 -u {main_py} --run --config-dir {cwd}
+StandardOutput=journal+console
+StandardError=inherit
 Restart=on-failure
-RestartSec=5
+RestartSec=15
 
 [Install]
 WantedBy=default.target
 """
 
 
-def write_template(main_py_path: Path):
+def write_template(config_dir: Path, main_py_path: Path):
     """Write service content into given path."""
     SERVICE_DIR.mkdir(parents=True, exist_ok=True)
     # Read the PATH from the current environment
     path_env = subprocess.check_output(['printenv', 'PATH'], text=True).strip()
     content = SERVICE_TEMPLATE.format(
         path_env=path_env,
-        cwd=main_py_path.parent.parent,
+        cwd=config_dir,
         main_py=main_py_path,
     )
     SERVICE_PATH.write_text(content)
@@ -53,7 +55,7 @@ def setup_game_notifier_instance(config_dir: Path, main_py: Path):
     - `config_dir`: to configuration (.env) for a specfic instance
     - `main_py`: to the main.py where this tool is installed
     """
-    write_template(main_py)
+    write_template(config_dir, main_py)
     run_systemctl('daemon-reload')
     instance = config_dir.name
     run_systemctl('enable', '--now', f'game-notifier@{instance}')
