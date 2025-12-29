@@ -16,9 +16,8 @@
           name = "game-notifier-env";
           targetPkgs =
             ps: with ps; [
-              ruff
+              python313Packages.python-lsp-server
             ];
-          # multiPkgs = ps: with ps; [ ]; # 32-bit libs
           runScript = "bash";
         };
       in
