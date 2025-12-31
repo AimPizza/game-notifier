@@ -9,6 +9,7 @@ from dataclasses import dataclass
 class EpicGame:
     title: str = ""
     banner_url: str = ""
+    store_url: str = ""
 
 
 @dataclass(frozen=True, slots=True)
@@ -17,4 +18,5 @@ class SteamSaleHit:
     discount_percentage: int
     title: str = ""
     banner_url: str = ""
+    store_url: str = ""
     price: str = ""

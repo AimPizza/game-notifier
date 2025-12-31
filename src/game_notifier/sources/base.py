@@ -14,6 +14,7 @@ from game_notifier import database, utils
 class Notification:
     message: str
     image_url: str = ""
+    store_url: str = ""
 
 
 TItem = TypeVar("TItem")

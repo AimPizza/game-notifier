@@ -30,4 +30,5 @@ class EpicSource(GameStoreSource[EpicGame]):
         return Notification(
             message=f"{item.title} is currently free on Epic Games!",
             image_url=item.banner_url,
+            store_url=item.store_url,
         )
