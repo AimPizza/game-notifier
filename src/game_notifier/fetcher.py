@@ -39,16 +39,29 @@ def epic_is_currently_free(game: EpicResponseGame) -> bool:
 
 
 def epic_get_banner_url(game: EpicResponseGame) -> str:
+    """Determine the banner URL of an epicgames game.
+
+    Returns an empty string if none is found.
+    """
     wanted_image_types = ["OfferImageWide"]
-    for image_obj in game["keyImages"]:
-        if image_obj["type"] in wanted_image_types:
-            return image_obj["url"]
+    for image_obj in game.get("keyImages", []):
+        if image_obj.get("type") in wanted_image_types:
+            return image_obj.get("url", "")
 
     return ""
 
 
-def epic_build_store_url(slug: str) -> str:
-    return f"https://epicgames.com/{LOCALE}/p/{slug}"
+def epic_build_store_url(game: EpicResponseGame) -> str:
+    """Determine the page URL of an epicgames game.
+
+    Returns an empty string if none is found.
+    """
+    offer_mappings: list | None = game.get("offerMappings")
+    if offer_mappings and len(offer_mappings) > 0:
+        slug = offer_mappings[0].get("pageSlug")
+        if slug:
+            return f"https://epicgames.com/{LOCALE}/p/{slug}"
+    return ""
 
 
 def epic_free_games() -> list[EpicGame]:
@@ -65,9 +78,9 @@ def epic_free_games() -> list[EpicGame]:
         for game in games:
             if epic_is_currently_free(game):
                 banner = epic_get_banner_url(game)
-                store = epic_build_store_url(game["productSlug"])
+                url = epic_build_store_url(game)
                 free_games.append(
-                    EpicGame(title=game["title"], banner_url=banner, store_url=store)
+                    EpicGame(title=game["title"], banner_url=banner, store_url=url)
                 )
 
     return free_games
